@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf8">
+        <script language="javascript">
+            //1.返回
+            function backClick() {
+                window.webkit.messageHandlers.back.postMessage(null);
+            }
+            //2.js向OC传值
+            function paramClick() {
+                var content = document.getElementById("firstid").value;
+                window.webkit.messageHandlers.Param.postMessage(content);
+            }
+            //3.OC向js传值
+            function getUserInfo(str) {
+                document.getElementById("secondid").value = str;
+            }
+            function asyncAlert(content) {
+                setTimeout(function() {
+                   alert(content);
+                           },1);
+            }
+            // 4.点击相机
+            function cameraClick() {
+              window.webkit.messageHandlers.camera.postMessage(null);
+            }
+            //5. 点击相册
+            function albumClick() {
+                window.webkit.messageHandlers.album.postMessage(null);
+            }
+         //显示图片
+          function rtnCamera(basedata) {
+            var zsz=document.getElementById('zsz');
+            zsz.innerHTML="<image style='width:200px;height:200px;' src='data:image/png;base64,"+basedata+"'>";
+        };
+         </script>
+    </head>
+    <body>
+        <h1>html5</h1>
+        <input type="button" value="返回首页" onclick="backClick()" />
+        <h1>传js数据给oc</h1>
+        <textarea id ="firstid" type="value" rows="5" cols="40"></textarea>
+        <input type="button" value="上传" onclick="paramClick()" />
+
+        <h1>展示oc所传数据</h1>
+        <textarea id ="secondid" type="value" rows="5" cols="40"> </textarea>
+
+        <h1>调相机相册</h1>
+        <input type="button" value="相机按钮" onclick="cameraClick()" />
+        <input type="button" value="相册按钮" onclick="albumClick()" />
+        <div id='zsz'></div>
+        
+    </body>
+</html>
+
